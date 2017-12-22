@@ -1,7 +1,7 @@
 import  { combineReducers } from 'redux';
 
 
-import {  
+import {
   CREATE_ACCOUNT,
   CREATE_DEPOSIT,
   CREATE_WITHDRAW,
@@ -25,7 +25,10 @@ export default function accounts(state=[], action) {
   reducers[CREATE_DEPOSIT] = () => {
     return state.map((account) => {
       if (account.id === action.data.id) {
-        account.value += action.data.value;
+        return {
+          ...account,
+          value: account.value + action.data.value
+        };
       }
 
       return account;
@@ -36,7 +39,10 @@ export default function accounts(state=[], action) {
   reducers[CREATE_WITHDRAW] = () => {
     return state.map((account) => {
       if (account.id === action.data.id) {
-        account.value -= action.data.value;
+        return {
+          ...account,
+          value: account.value - action.data.value
+        };
       }
 
       return account;
@@ -47,11 +53,17 @@ export default function accounts(state=[], action) {
   reducers[CREATE_TRANSFER] = () => {
     return state.map((account) => {
       if (account.id === action.data.accountToId) {
-        account.value += action.data.value;
+        return {
+          ...account,
+          value: account.value + action.data.value
+        };
       }
 
       if (account.id === action.data.accountFromId) {
-        account.value -= action.data.value;
+        return {
+          ...account,
+          value: account.value - action.data.value
+        };
       }
 
       return account;

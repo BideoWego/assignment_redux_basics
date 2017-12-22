@@ -38,7 +38,10 @@ export default function puppies(state=[], action) {
   reducers[UPDATE_PUPPY] = () => {
     return state.map((puppy) => {
       if (puppy.id === action.data.id) {
-        return action.data;
+        return {
+          ...puppy,
+          ...action.data
+        };
       }
 
       return puppy;
